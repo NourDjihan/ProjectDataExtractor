@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Testing if all the files with the same extension have been treated
+ * @author nour
+ *
+ */
 class NoMissingFilesTest {
 
 	

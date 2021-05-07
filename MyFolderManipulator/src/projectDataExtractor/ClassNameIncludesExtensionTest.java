@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class ClassNameIncludesExtension {
-
+class ClassNameIncludesExtensionTest {
+ 
 	@Test
 	void test() throws IOException {
 		ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
@@ -47,7 +47,7 @@ class ClassNameIncludesExtension {
 	String newFileContent 
 		= dataExtractor
 		.reduceFileContent(
-				fileContent, 
+				fileContent,  
 				regexPattern,
 				addedContent);
 	String expectedContent = "package com.google.common.collect.testing;\n"

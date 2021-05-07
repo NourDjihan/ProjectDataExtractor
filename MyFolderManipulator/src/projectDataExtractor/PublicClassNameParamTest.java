@@ -39,7 +39,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
 									+ ")*"
 								+ "(\\s*)" /** The space at the end is optional, developers sometimes miss the space */				
-							+"\\{"
+				 			+"\\{"
 							);
 
 		String addedContent = "}";

@@ -16,7 +16,7 @@ class PublicClassExtendsTest {
 	void test() throws IOException {
 ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
-		
+		  
 		Pattern regexPattern 
 			= Pattern.compile(
 					"\\s*"

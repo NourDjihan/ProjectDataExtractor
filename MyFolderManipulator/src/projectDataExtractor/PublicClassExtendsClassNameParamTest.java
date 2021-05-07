@@ -49,7 +49,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 			= dataExtractor
 			.reduceFileContent(
 					fileContent, 
-					regexPattern,
+					regexPattern, 
 					addedContent);
 		String expectedContent = "package com.google.common.base;\n"
 				+ "\n"

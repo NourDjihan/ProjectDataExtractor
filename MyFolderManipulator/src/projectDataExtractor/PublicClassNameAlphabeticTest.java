@@ -15,7 +15,7 @@ class PublicClassNameAlphabeticTest {
 	@Test
 	void test() throws IllegalArgumentException, IOException {
 ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
-		
+		 
 		
 		Pattern regexPattern 
 			= Pattern.compile(

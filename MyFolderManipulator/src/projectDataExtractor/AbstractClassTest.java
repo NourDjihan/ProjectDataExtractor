@@ -29,7 +29,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 									+ "|"
 									+ "@?interface"
 									+ "|"
-									+ "enum)"
+									+ "enum)" 
 								+ ")\\s+" 
 								+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
 									+ "("

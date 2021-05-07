@@ -18,7 +18,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		
 		Pattern regexPattern 
-			= Pattern.compile(
+			= Pattern.compile( 
 					"\\s*"
 							+ "((public|private|final)\\s+)?"
 								+ "("
