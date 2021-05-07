@@ -1,0 +1,2 @@
+package blah;
+class BlahBlah implements Blah implements Bouhou<T,N,More>{}

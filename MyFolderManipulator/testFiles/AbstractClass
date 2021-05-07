@@ -1,0 +1,15 @@
+\**
+
+Abstract class definition 
+
+*\
+
+package abstract.class.definition;
+
+abstract class myAbstract {
+
+Abstract class class 
+
+*\
+
+}

@@ -1,0 +1,3 @@
+package com.google.common.base;
+
+public class BlahBlah extends Blah<T, N> {}

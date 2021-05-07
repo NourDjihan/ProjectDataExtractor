@@ -1,0 +1,2 @@
+package blah;
+public class BlahBlah<T, N, More> {}

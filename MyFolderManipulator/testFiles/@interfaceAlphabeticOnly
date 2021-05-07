@@ -1,0 +1,6 @@
+package com.google.common.base;
+
+@Retention(CLASS)
+@Target({ANNOTATION_TYPE, CONSTRUCTOR, FIELD, METHOD, TYPE})
+@GwtCompatible
+@interface AndroidIncompatible {}
