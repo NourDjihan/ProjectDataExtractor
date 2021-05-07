@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class publicClassExtends {
+class InterfaceAlphabeticTest {
 
 	@Test
 	void test() throws IOException {
@@ -44,7 +44,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							);
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassExtends");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/@interfaceAlphabeticOnly.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
 			= dataExtractor
@@ -52,15 +52,16 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 					fileContent, 
 					regexPattern,
 					addedContent);
-		String expectedContent = "package blah;\n"
+		String expectedContent = "package com.google.common.base;\n"
 				+ "\n"
-				+ "public class BlahBlah extends Blah{}";
+				+ "@Retention(CLASS)\n"
+				+ "@Target({ANNOTATION_TYPE, CONSTRUCTOR, FIELD, METHOD, TYPE})\n"
+				+ "@GwtCompatible\n"
+				+ "@interface AndroidIncompatible {}";
 		System.out.println(newFileContent);
 		
 		Assertions.assertEquals(expectedContent, newFileContent);
 		
 	}
-	
-		
-	
+
 }

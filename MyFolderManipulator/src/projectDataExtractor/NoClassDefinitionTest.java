@@ -10,18 +10,16 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class implementationsTest {
+class NoClassDefinitionTest {
 
 	@Test
 	void test() throws IOException {
 ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
-/**
- * We define here the regular expression	
- */
+		
 		Pattern regexPattern 
 			= Pattern.compile(
-					"\\s*"
+					"\\s*(package\\s+[a-zA-Z].*)\\s+"
 							+ "((public|private|final)\\s+)?"
 								+ "("
 									+ "(abstract\\s+)?"
@@ -45,20 +43,19 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							+"\\{"
 							);
 
+
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/moreThanOneImplementation");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/NoClassDefinition.java");
 		String fileContent = Files.readString(file);
-		String newFileContent 
-			= dataExtractor
-			.reduceFileContent(
-					fileContent, 
-					regexPattern,
-					addedContent);
-		String expectedContent = "package blah;\n"
-				+ "class BlahBlah implements Blah implements Bouhou<T,N,More>{}";
-		System.out.println(newFileContent);
-		
-		Assertions.assertEquals(expectedContent, newFileContent);
+			
+			Assertions.assertThrows(IllegalArgumentException.class, () -> {
+				String newFileContent 
+				= dataExtractor
+				.reduceFileContent(
+						fileContent, 
+						regexPattern,
+						addedContent);
+			  });
 		
 	}
 

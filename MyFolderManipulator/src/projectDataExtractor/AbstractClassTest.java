@@ -47,7 +47,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/AbstractClass");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/AbstractClass.java");
 		String fileContent = Files.readString(file);
 			
 		String newFileContent 

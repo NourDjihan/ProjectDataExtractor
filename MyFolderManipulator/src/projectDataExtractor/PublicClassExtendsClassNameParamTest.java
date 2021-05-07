@@ -1,5 +1,4 @@
 package projectDataExtractor;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
@@ -10,10 +9,10 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class publicClassAlphabetic {
+class PublicClassExtendsClassNameParamTest {
 
 	@Test
-	void test() throws IllegalArgumentException, IOException {
+	void test() throws IOException {
 ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		
@@ -44,7 +43,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							);
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassAlphabeticsOnly");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassExtendsParam.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
 			= dataExtractor
@@ -52,14 +51,14 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 					fileContent, 
 					regexPattern,
 					addedContent);
-		String expectedContent = "package blah;\n"
+		String expectedContent = "package com.google.common.base;\n"
 				+ "\n"
-				+ "class BlahBlah {}";
+				+ "public class BlahBlah extends Blah<T, N> {}";
 		System.out.println(newFileContent);
 		
 		Assertions.assertEquals(expectedContent, newFileContent);
 		
+
 	}
-	
 
 }

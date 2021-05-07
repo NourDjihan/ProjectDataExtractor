@@ -10,13 +10,15 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class InterfaceAlphabeticAndCharsTest {
+class MoreThanOneImplementationTest {
 
 	@Test
 	void test() throws IOException {
 ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
-		
+/**
+ * We define here the regular expression	
+ */
 		Pattern regexPattern 
 			= Pattern.compile(
 					"\\s*"
@@ -44,7 +46,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							);
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/@interfaceAlphabeticOnly");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/moreThanOneImplementation.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
 			= dataExtractor
@@ -52,12 +54,8 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 					fileContent, 
 					regexPattern,
 					addedContent);
-		String expectedContent = "package com.google.common.base;\n"
-				+ "\n"
-				+ "@Retention(CLASS)\n"
-				+ "@Target({ANNOTATION_TYPE, CONSTRUCTOR, FIELD, METHOD, TYPE})\n"
-				+ "@GwtCompatible\n"
-				+ "@interface AndroidIncompatible {}";
+		String expectedContent = "package blah;\n"
+				+ "class BlahBlah implements Blah implements Bouhou<T,N,More>{}";
 		System.out.println(newFileContent);
 		
 		Assertions.assertEquals(expectedContent, newFileContent);

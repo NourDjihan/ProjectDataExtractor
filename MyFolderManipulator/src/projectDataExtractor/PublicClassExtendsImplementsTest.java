@@ -1,4 +1,5 @@
 package projectDataExtractor;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class publicClassParam {
+class PublicClassExtendsImplementsTest {
 
 	@Test
 	void test() throws IOException {
@@ -18,7 +19,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		Pattern regexPattern 
 			= Pattern.compile(
-					"\\s*(package\\s+[a-zA-Z].*)\\s+"
+					"\\s*"
 							+ "((public|private|final)\\s+)?"
 								+ "("
 									+ "(abstract\\s+)?"
@@ -43,7 +44,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							);
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassParam");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassExtendsImplements2.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
 			= dataExtractor
@@ -52,14 +53,17 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 					regexPattern,
 					addedContent);
 		String expectedContent = "package blah;\n"
-				+ "public class BlahBlah<T, N, More> {}";
+				+ "\n"
+				+ "public \n"
+				+ "	class BlahBlah \n"
+				+ "		extends Blah \n"
+				+ "			implements Bouhou implements <T, N> implements <A>{}";
+				
 		System.out.println(newFileContent);
 		
 		Assertions.assertEquals(expectedContent, newFileContent);
 		
-
-	}
-
 	
+	}
 
 }

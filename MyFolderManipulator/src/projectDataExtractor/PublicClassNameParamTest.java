@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class publicClassExtendsParam {
+class PublicClassNameParamTest {
 
 	@Test
 	void test() throws IOException {
@@ -18,7 +18,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		Pattern regexPattern 
 			= Pattern.compile(
-					"\\s*"
+					"\\s*(package\\s+[a-zA-Z].*)\\s+"
 							+ "((public|private|final)\\s+)?"
 								+ "("
 									+ "(abstract\\s+)?"
@@ -43,7 +43,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							);
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassExtendsParam");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassParam.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
 			= dataExtractor
@@ -51,14 +51,15 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 					fileContent, 
 					regexPattern,
 					addedContent);
-		String expectedContent = "package com.google.common.base;\n"
-				+ "\n"
-				+ "public class BlahBlah extends Blah<T, N> {}";
+		String expectedContent = "package blah;\n"
+				+ "public class BlahBlah<T, N, More> {}";
 		System.out.println(newFileContent);
 		
 		Assertions.assertEquals(expectedContent, newFileContent);
 		
 
 	}
+
+	
 
 }

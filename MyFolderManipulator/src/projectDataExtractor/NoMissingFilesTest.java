@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class noMissingFilesTest {
+class NoMissingFilesTest {
 
 	
 	private List<String> fileNamesOf(List<Path> files){

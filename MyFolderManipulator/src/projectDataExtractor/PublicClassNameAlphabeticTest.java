@@ -10,10 +10,10 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class publicClassExtendsImplements2 {
+class PublicClassNameAlphabeticTest {
 
 	@Test
-	void test() throws IOException {
+	void test() throws IllegalArgumentException, IOException {
 ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		
@@ -44,7 +44,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 							);
 
 		String addedContent = "}";
-		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassExtendsImplements2");
+		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/publicClassAlphabeticsOnly.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
 			= dataExtractor
@@ -54,16 +54,12 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 					addedContent);
 		String expectedContent = "package blah;\n"
 				+ "\n"
-				+ "public \n"
-				+ "	class BlahBlah \n"
-				+ "		extends Blah \n"
-				+ "			implements Bouhou implements <T, N> implements <A>{}";
-				
+				+ "class BlahBlah {}";
 		System.out.println(newFileContent);
 		
 		Assertions.assertEquals(expectedContent, newFileContent);
 		
-	
 	}
+	
 
 }
