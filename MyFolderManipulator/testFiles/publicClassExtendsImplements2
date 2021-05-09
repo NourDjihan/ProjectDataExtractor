@@ -1,6 +1,0 @@
-package blah;
-
-public 
-	class BlahBlah 
-		extends Blah 
-			implements Bouhou implements <T, N> implements <A>{}
