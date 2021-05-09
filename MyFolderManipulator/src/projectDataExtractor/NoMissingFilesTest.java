@@ -21,13 +21,6 @@ import org.junit.jupiter.api.Test;
 class NoMissingFilesTest {
 
 	
-	private List<String> fileNamesOf(List<Path> files){
-		List<String> fileNames = new ArrayList<String>();
-		for(Path file : files) {
-			fileNames.add(file.getFileName().toString());
-		}
-		return fileNames;
-	}
 	@Test
 	public void Test() throws IllegalArgumentException, IOException {
 		/**
@@ -36,37 +29,29 @@ class NoMissingFilesTest {
 		 */
 		ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
-		
+		/**
+		 * Take only classes and enums no interfaces
+		 */
 		Pattern regexPattern 
 			= Pattern.compile(
 					"\\s*"
 							+ "((public|private|final)\\s+)?"
-								+ "("
 									+ "(abstract\\s+)?"
 									+ "(class"
 									+ "|"
 									+ "@?interface"
 									+ "|"
 									+ "enum)"
-								+ ")\\s+" 
-								+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ "("
-									+ "(extends\\s+)"
-									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ ")?"
-									+ "(\\s+)?"
-									+ "("
-									+ "(implements\\s+)" 
-									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ ")*"
-								+ "(\\s*)" /** The space at the end is optional, developers sometimes miss the space */				
+								+ "\\s+"
+									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\s*)?(\\?\\s*)?)*\\s*"		
 							+"\\{"
 							);
+							
 
-		Path myProjectDirectory = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/");
-		Path newProjectDirectory = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testsResult/");
+		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/flink/");
+		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newFlink/");
 		String extension = ".java";
-		String addedContent = "/n" + "}";
+		String addedContent = "}";
 		dataExtractor
 			.reduceProjectContent(
 					myProjectDirectory, 
@@ -77,25 +62,32 @@ class NoMissingFilesTest {
 		
 		/**
 		 * In this part file names from both new and old project are extracted to be compared 
-		 * and test if a file is missing
+		 * and test if a file is missing accoring to their size
 		 */
 		List<Path> myProjectFiles = dataExtractor.filesOf(myProjectDirectory, extension);
 		List<Path> newProjectFiles = dataExtractor.filesOf(newProjectDirectory, extension);
-		var myProjectFileNames = fileNamesOf(myProjectFiles);
-		var newProjectFileNames = fileNamesOf(newProjectFiles);
+		var myProjectFileNames = dataExtractor.fileNamesOf(myProjectFiles);
+		var newProjectFileNames = dataExtractor.fileNamesOf(newProjectFiles);
 
 		List<String> differences = new ArrayList<String>(myProjectFileNames);
+		String packageInfoFile = "package-info";
+		Boolean areAllPackageInfoFiles = true;
 		differences.removeAll(newProjectFileNames);
 		if(differences.isEmpty()) {
 			System.out.println("No missing files!");
 		}else {
 			System.out.println("Missing files of the same extension:"); 
-			for(String difference : differences)				
+			for(String difference : differences) {			
 				System.out.println("\n" + difference);
+				if(difference == packageInfoFile) { 
+					areAllPackageInfoFiles = false;
+					}
+				
+			}
 			
 		}		
 		
-		Assertions.assertEquals(myProjectFileNames.size(), newProjectFileNames.size());
+		Assertions.assertEquals(true, areAllPackageInfoFiles);
 	
 
 }

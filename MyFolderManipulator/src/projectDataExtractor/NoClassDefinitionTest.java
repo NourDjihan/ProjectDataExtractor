@@ -19,29 +19,19 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		Pattern regexPattern 
 			= Pattern.compile(
-					"\\s*(package\\s+[a-zA-Z].*)\\s+"
+					"\\s*package\\s*.*"
 							+ "((public|private|final)\\s+)?"
-								+ "("
 									+ "(abstract\\s+)?"
 									+ "(class"
 									+ "|"
 									+ "@?interface"
 									+ "|"
 									+ "enum)"
-								+ ")\\s+" 
-								+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ "("
-									+ "(extends\\s+)"
-									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ ")?"
-									+ "(\\s+)?"
-									+ "("
-									+ "(implements\\s+)" 
-									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ ")*"
-								+ "(\\s*)" /** The space at the end is optional, developers sometimes miss the space */				
+								+ "\\s+"
+									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\s*)?(\\?\\s*)?)*\\s*"		
 							+"\\{"
 							);
+							
 
 
 		String addedContent = "}";

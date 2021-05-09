@@ -23,31 +23,21 @@ public class Main {
 		ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		Pattern regexPattern 
 			= Pattern.compile(
-					"\\s*"
+					 "\\s*"
 							+ "((public|private|final)\\s+)?"
-								+ "("
 									+ "(abstract\\s+)?"
 									+ "(class"
 									+ "|"
 									+ "@?interface"
 									+ "|"
 									+ "enum)"
-								+ ")\\s+" 
-								+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ "("
-									+ "(extends\\s+)"
-									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ ")?"
-									+ "(\\s+)?"
-									+ "("
-									+ "(implements\\s+)" 
-									+ "[a-zA-Z].*(<([a-zA-Z].*) (,\\s*([a-zA-Z].*))*>)?\\s*"
-									+ ")*"
-								+ "(\\s*)" /** The space at the end is optional, developers sometimes miss the space */				
+								+ "\\s+" 
+									+ "([A-aZ-z0-9]?\\s*.*?\\s*,?\\s*)*"
+//								+ "((<|>|.*)*\\s*(,\\s*)?(.*\\s*)?)*"			
 							+"\\{"
 							);
 
-		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/elasticSearch/");
+		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/elasticsearch/");
 		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newElasticSearch/");
 		String extension = ".java";
 		String addedContent = "}";
@@ -70,11 +60,10 @@ public class Main {
 		}else {
 			System.out.println("Missing files of the same extension:"); 
 			for(String difference : differences)				
-				System.out.println("\n" + difference);
-					
-		
+				System.out.println("\n" + difference);	
+			System.out.println("Expected: " + myProjectFiles.size() + " But got: "+ newProjectFiles.size());
 			
-		}		
-
+		}
+		
 	}
 }

@@ -3,6 +3,7 @@ package projectDataExtractor;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +33,18 @@ public class ProjectDataExtractor {
         int end = endFileIndex(content, pattern);
         return content.substring(0, end) + addedContent;
     }
-	 
+	 /**
+	  * 
+	  * @param files
+	  * @return a list of file names
+	  */
+	 public List<String> fileNamesOf(List<Path> files){
+			List<String> fileNames = new ArrayList<String>();
+			for(Path file : files) {
+				fileNames.add(file.getFileName().toString());
+			}
+			return fileNames;
+		}
 	 /**
 	  * This methods is responsible for extracting files with a given extension 
 	  * @param projectDirectory
@@ -65,6 +77,7 @@ public class ProjectDataExtractor {
 	private int endFileIndex(String content, Pattern pattern) throws IllegalArgumentException {
             		 
         Matcher matcher = pattern.matcher(content);
+       
         if (!matcher.find())
             throw new IllegalArgumentException("pattern not found");
         return matcher.end();
