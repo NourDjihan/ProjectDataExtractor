@@ -23,7 +23,7 @@ public class Main {
 		ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		Pattern regexPattern 
 			= Pattern.compile(
-					 "\\s*"
+					"\\s*"
 							+ "((public|private|final)\\s+)?"
 									+ "(abstract\\s+)?"
 									+ "(class"
@@ -31,11 +31,11 @@ public class Main {
 									+ "@?interface"
 									+ "|"
 									+ "enum)"
-								+ "\\s+" 
-									+ "([A-aZ-z0-9]?\\s*.*?\\s*,?\\s*)*"
-//								+ "((<|>|.*)*\\s*(,\\s*)?(.*\\s*)?)*"			
+								+ "\\s+"
+									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\s*)?(\\?\\s*)?)*\\s*"		
 							+"\\{"
 							);
+							
 
 		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/elasticsearch/");
 		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newElasticSearch/");
@@ -52,18 +52,32 @@ public class Main {
 		List<Path> newProjectFiles = dataExtractor.filesOf(newProjectDirectory, extension);
 		var myProjectFileNames = fileNamesOf(myProjectFiles);
 		var newProjectFileNames = fileNamesOf(newProjectFiles);
-
+		/*
+		 * To check if there are missing files, if so are they package info files
+		*/
 		List<String> differences = new ArrayList<String>(myProjectFileNames);
 		differences.removeAll(newProjectFileNames);
+		
+		String packageInfoFile = "package-info";
+		Boolean areAllPackageInfoFiles = true;
+		
 		if(differences.isEmpty()) {
 			System.out.println("No missing files!");
 		}else {
-			System.out.println("Missing files of the same extension:"); 
-			for(String difference : differences)				
-				System.out.println("\n" + difference);	
-			System.out.println("Expected: " + myProjectFiles.size() + " But got: "+ newProjectFiles.size());
-			
+			for(String difference : differences) {				
+				if(difference == packageInfoFile) { 
+					areAllPackageInfoFiles = false;
+					}	
+			}
+		System.out.println("Expected: " + myProjectFiles.size() + " But got: "+ newProjectFiles.size());
+		if(areAllPackageInfoFiles) {
+			System.out.println("Missing files are package-info files.");
+			}	
 		}
+		
+				
+				
+				
 		
 	}
 }
