@@ -27,13 +27,10 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 									+ "|"
 									+ "enum)"
 								+ "\\s+"
-									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\*+)?(\\?\\s*)?)*\\s*"		
-							+"\\{"
-							);
-							
+									+ "([^(\\{\\s*)]*\\s*)*");				
 							
 
-		String addedContent = "}";
+		String addedContent = "{}";
 		Path file = Path.of("/Users/nour/eclipse-workspace/MyFolderManipulator/testFiles/AbstractClassExtendsImplements.java");
 		String fileContent = Files.readString(file);
 		String newFileContent 
@@ -51,7 +48,9 @@ String expectedContent = "/*\n"
 		+ " */\n"
 		+ "\n"
 		+ "package org.elasticsearch.index.reindex;\n"
-		+ "\n"
+		+ "/**\n"
+		+ " * Any comment\n"
+		+ " */\n"
 		+ "public abstract class AbstractAsyncBulkByScrollActionMetadataTestCase<\n"
 		+ "                Request extends AbstractBulkByScrollRequest<Request>,\n"
 		+ "                Response extends BulkByScrollResponse>\n"

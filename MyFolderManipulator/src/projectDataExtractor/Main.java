@@ -12,13 +12,6 @@ import org.junit.jupiter.api.Assertions;
 
 public class Main {
 	
-	private static List<String> fileNamesOf(List<Path> files){
-		List<String> fileNames = new ArrayList<String>();
-		for(Path file : files) {
-			fileNames.add(file.getFileName().toString());
-		}
-		return fileNames;
-	}
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		Pattern regexPattern 
@@ -32,15 +25,12 @@ public class Main {
 									+ "|"
 									+ "enum)"
 								+ "\\s+"
-									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\s*)?(\\?\\s*)?)*\\s*"		
-							+"\\{"
-							);
-							
+									+ "([^(\\{\\s*)]*\\s*)*");
 
 		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/elasticsearch/");
 		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newElasticSearch/");
 		String extension = ".java";
-		String addedContent = "}";
+		String addedContent = "{}";
 		dataExtractor
 			.reduceProjectContent(
 					myProjectDirectory, 
@@ -50,8 +40,8 @@ public class Main {
 					addedContent);
 		List<Path> myProjectFiles = dataExtractor.filesOf(myProjectDirectory, extension);
 		List<Path> newProjectFiles = dataExtractor.filesOf(newProjectDirectory, extension);
-		var myProjectFileNames = fileNamesOf(myProjectFiles);
-		var newProjectFileNames = fileNamesOf(newProjectFiles);
+		var myProjectFileNames = dataExtractor.fileNamesOf(myProjectFiles);
+		var newProjectFileNames = dataExtractor.fileNamesOf(newProjectFiles);
 		/*
 		 * To check if there are missing files, if so are they package info files
 		*/
@@ -65,19 +55,18 @@ public class Main {
 			System.out.println("No missing files!");
 		}else {
 			for(String difference : differences) {				
-				if(difference == packageInfoFile) { 
+				if(difference != packageInfoFile) { 
 					areAllPackageInfoFiles = false;
 					}	
-			}
+			}	
+		}
 		System.out.println("Expected: " + myProjectFiles.size() + " But got: "+ newProjectFiles.size());
 		if(areAllPackageInfoFiles) {
 			System.out.println("Missing files are package-info files.");
-			}	
-		}
+			}
 		
 				
-				
-				
+							
 		
 	}
 }

@@ -26,8 +26,7 @@ class ContentMatcherTest {
 								+ "|"
 								+ "enum)"
 							+ "\\s+"
-								+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\*+)?(\\?\\s*)?)*\\s*"		
-						+"\\{"
+								+ "([^(\\{\\s*)]*\\s*)*"
 						);
 						
 	Boolean match = true;

@@ -27,13 +27,10 @@ class AllClassesTest {
 									+ "|"
 									+ "enum)"
 								+ "\\s+"
-									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\s*)?(\\?\\s*)?)*\\s*"		
-							+"\\{"
-							);
-							
+									+ "([^(\\{\\s*)]*\\s*)*");
 		
-		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/elasticsearch/");
-		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newElasticSearch/");
+		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/flink/");
+		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newFlink/");
 		String extension = ".java";
 		String addedContent = "}";
 		dataExtractor
@@ -45,35 +42,37 @@ class AllClassesTest {
 					addedContent);
 		List<Path> myProjectFiles = dataExtractor.filesOf(myProjectDirectory, extension);
 		List<Path> newProjectFiles = dataExtractor.filesOf(newProjectDirectory, extension);
-		System.out.println(
-				"Original file contains: " 
-						+ dataExtractor.filesOf(myProjectDirectory, ".java").size() +
-				"New Files contains: " 
-					+ dataExtractor.filesOf(newProjectDirectory, ".java").size()
-		);
+//		System.out.println(
+//				"Original file contains: " 
+//						+ dataExtractor.filesOf(myProjectDirectory, ".java").size() +
+//				"New Files contains: " 
+//					+ dataExtractor.filesOf(newProjectDirectory, ".java").size()
+//		);
 		/*
 		 * To check if there are missing files, if so are they package info files
-		 */
+		*/
 		var myProjectFileNames = dataExtractor.fileNamesOf(myProjectFiles);
 		var newProjectFileNames = dataExtractor.fileNamesOf(newProjectFiles);
 		List<String> differences = new ArrayList<String>(myProjectFileNames);
-		String packageInfoFile = "package-info";
-		Boolean areAllPackageInfoFiles = true;
 		differences.removeAll(newProjectFileNames);
+		
+		String packageInfoFile = "package-info.java";
+		Boolean areAllPackageInfoFiles = true;
+		
 		if(differences.isEmpty()) {
 			System.out.println("No missing files!");
 		}else {
-			System.out.println("Missing files of the same extension:"); 
-			for(String difference : differences) {			
-				System.out.println("\n" + difference);
-				if(difference == packageInfoFile) { 
+			for(String difference : differences) {	
+				System.out.print(difference + "\n");
+				if(!difference.equals(packageInfoFile)) { 
 					areAllPackageInfoFiles = false;
-					}
-				
+					}	
+			}	
+		}
+		System.out.println("Expected: " + myProjectFiles.size() + " But got: "+ newProjectFiles.size());
+		if(areAllPackageInfoFiles) {
+			System.out.println("Missing files are package-info files.");
 			}
-			
-		}		
-		
 		Assertions.assertEquals(true, areAllPackageInfoFiles);
 	}
 

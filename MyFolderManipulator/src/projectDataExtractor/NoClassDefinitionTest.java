@@ -19,7 +19,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 		
 		Pattern regexPattern 
 			= Pattern.compile(
-					"\\s*package\\s*.*"
+					"\\s*"
 							+ "((public|private|final)\\s+)?"
 									+ "(abstract\\s+)?"
 									+ "(class"
@@ -28,9 +28,7 @@ ProjectDataExtractor dataExtractor = new ProjectDataExtractor();
 									+ "|"
 									+ "enum)"
 								+ "\\s+"
-									+ "(([A-Za-z].*\\s*)?(\\.\\s*)?(,\\s*)?(<\\s*)?(>\\s*)?(\\?\\s*)?)*\\s*"		
-							+"\\{"
-							);
+									+ "([^(\\{\\s*)]*\\s*)*");
 							
 
 
