@@ -1,6 +1,10 @@
 package projectDataExtractor;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -102,9 +106,8 @@ public class ProjectDataExtractor {
         var myFiles = filesOf(myProjectDirectory, extension);
 
         for (Path myFile : myFiles) {
-            String content = Files.readString(myFile);
+            String content = Files.readString(myFile, StandardCharsets.ISO_8859_1);
             String newContent = "";
-
             try {
             	newContent = reduceFileContent(content, pattern, addedContent);
             }

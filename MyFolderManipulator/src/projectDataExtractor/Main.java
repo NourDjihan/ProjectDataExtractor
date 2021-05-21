@@ -21,14 +21,16 @@ public class Main {
 									+ "(abstract\\s+)?"
 									+ "(class"
 									+ "|"
+									+ "record"
+									+ "|"
 									+ "@?interface"
 									+ "|"
 									+ "enum)"
 								+ "\\s+"
 									+ "([^(\\{\\s*)]*\\s*)*");
 
-		Path myProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/elasticsearch/");
-		Path newProjectDirectory = Path.of("/Users/nour/Desktop/GitJavaProjects/SelectedProjects/newElasticSearch/");
+		Path myProjectDirectory = Path.of("/Users/nour/Desktop/SelectedProjects/druid");
+		Path newProjectDirectory = Path.of("/Users/nour/Desktop/newSelectedProjects/druid");
 		String extension = ".java";
 		String addedContent = "{}";
 		dataExtractor
@@ -47,16 +49,17 @@ public class Main {
 		*/
 		List<String> differences = new ArrayList<String>(myProjectFileNames);
 		differences.removeAll(newProjectFileNames);
-		
-		String packageInfoFile = "package-info";
+		String differenceName = null;
+		String packageInfoFile = "package-info.java";
 		Boolean areAllPackageInfoFiles = true;
 		
 		if(differences.isEmpty()) {
 			System.out.println("No missing files!");
 		}else {
 			for(String difference : differences) {				
-				if(difference != packageInfoFile) { 
+				if(!difference.equals(packageInfoFile)) { 
 					areAllPackageInfoFiles = false;
+					System.out.println(difference);
 					}	
 			}	
 		}
